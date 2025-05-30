@@ -36,7 +36,7 @@ Linguaggio: Java
 
 Build Tool: Maven
 
-Database: PostgreSQL 
+Database: MySQL 
 
 Message Broker: RabbitMQ
 
