@@ -197,8 +197,8 @@ Documentazione API: Swagger / OpenAPI
 |**Endpoint**|**Metodo**|**Funzione**|**Parametri Input**|**Tipo Parametro**|**Return Type**|**Descrizione**|
 | :- | :- | :- | :- | :- | :- | :- |
 |/api/v1/students/courses/{courseId}/enroll|POST|selfEnrollToCourse()|Authorization, courseId: String|Path Variable|CourseEnrollmentDTO|Iscrizione self-service a un corso|
-|/api/v1/student/courses/isSelfService|GET|checkSelfServiceAvailability()|Authorization, courseId: String|Header, Query Parameter|Boolean|Controlla se un corso ha l’iscrizione self-service|
-|/api/v1/student/enrollments|GET|getPersonalEnrollments()|Authorization|Header|List<CourseEnrollmentDTO>|Visualizza le proprie iscrizioni|
+|/api/v1/students/courses/isSelfService|GET|checkSelfServiceAvailability()|Authorization, courseId: String|Header, Query Parameter|Boolean|Controlla se un corso ha l’iscrizione self-service|
+|/api/v1/students/enrollments|GET|getPersonalEnrollments()|Authorization|Header|List<CourseEnrollmentDTO>|Visualizza le proprie iscrizioni|
 |/api/v1/students/enrollments/{enrollmentId}|DELETE|cancelPersonalEnrollment()|Authorization,enrollmentId: String|Header, Path Variable|Void|Cancella la propria iscrizione attiva|
 |/api/v1/students/courses/{courseId}/enrollment-request|POST|requestEnrollmentToCourse()|<p>Authorization,courseId: String</p><p>requestDTO: EnrollmentRequestDTO</p><p>Parametri:</p><p>id: String</p><p>courseId: String</p><p>studentId: String requestDate: LocalDateTime</p><p>status: RequestStatus</p><p>rejectionReason: String</p><p>processedBy: String</p><p>processedDate:LocalDateTime</p>|Header, Path Variable, Request Body|EnrollmentRequestDTO|Invia una richiesta di iscrizione a un corso |
 |/api/v1/students/enrollment-requests|GET|getPersonalEnrollmentRequests()|Authorization|Header|List<EnrollmentRequestDTO>|Visualizza le proprie iscrizione inviate|
