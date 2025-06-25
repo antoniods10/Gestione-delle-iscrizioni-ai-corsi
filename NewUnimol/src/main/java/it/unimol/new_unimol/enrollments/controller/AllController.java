@@ -12,5 +12,7 @@ public class AllController {
 
     @GetMapping("/health")
     @Operation(description = "Questa funzione verifica lo stato di salute del microservizio")
-    public ResponseEntity<Boolean> healthCheck() {}
+    public ResponseEntity<Boolean> healthCheck() {
+
+    }
 }
