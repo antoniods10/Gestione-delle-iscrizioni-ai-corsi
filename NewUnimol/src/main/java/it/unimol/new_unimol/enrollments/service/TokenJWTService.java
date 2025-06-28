@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import it.unimol.new_unimol.enrollments.dto.TokenJWTDto;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -16,6 +17,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+@Service
 public class TokenJWTService {
 
     @Value("${jwt.private-key}")
