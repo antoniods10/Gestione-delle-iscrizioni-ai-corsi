@@ -1,11 +1,10 @@
 package it.unimol.new_unimol.enrollments.service;
 
 import it.unimol.new_unimol.enrollments.config.RabbitMQConfig;
-import it.unimol.new_unimol.enrollments.dto.CourseValidationRequestDto;
-import it.unimol.new_unimol.enrollments.dto.CourseValidationResponseDto;
-import it.unimol.new_unimol.enrollments.dto.EnrollmentEventDto;
-import it.unimol.new_unimol.enrollments.dto.EnrollmentNotificationDto;
-import it.unimol.new_unimol.enrollments.exceptions.ExternalServiceException;
+import it.unimol.new_unimol.enrollments.dto.rabbit.CourseValidationRequestDto;
+import it.unimol.new_unimol.enrollments.dto.rabbit.CourseValidationResponseDto;
+import it.unimol.new_unimol.enrollments.dto.rabbit.EnrollmentEventDto;
+import it.unimol.new_unimol.enrollments.dto.rabbit.EnrollmentNotificationDto;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
