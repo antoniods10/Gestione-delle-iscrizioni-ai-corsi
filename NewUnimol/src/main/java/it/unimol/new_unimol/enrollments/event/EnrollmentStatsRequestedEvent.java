@@ -18,16 +18,16 @@ public class EnrollmentStatsRequestedEvent implements Serializable {
         this.statsType = statsType;
     }
 
-    public String getRequestId() { return this.requestId; }
+    public String getRequestId() { return requestId; }
     public void setRequestId(String requestId) { this.requestId = requestId; }
 
-    public String getCourseId() { return this.courseId; }
+    public String getCourseId() { return courseId; }
     public void setCourseId(String courseId) { this.courseId = courseId; }
 
-    public String getTeacherId() { return this.teacherId; }
+    public String getTeacherId() { return teacherId; }
     public void setTeacherId(String teacherId) { this.teacherId = teacherId; }
 
-    public String getStatsType() { return this.statsType; }
+    public String getStatsType() { return statsType; }
     public void setStatsType(String statsType) { this.statsType = statsType; }
 
 }

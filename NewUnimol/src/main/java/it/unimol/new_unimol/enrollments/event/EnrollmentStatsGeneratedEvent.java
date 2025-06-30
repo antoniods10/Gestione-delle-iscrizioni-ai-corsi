@@ -26,24 +26,24 @@ public class EnrollmentStatsGeneratedEvent implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getRequestId() { return this.requestId; }
+    public String getRequestId() { return requestId; }
     public void setRequestId(String requestId) { this.requestId = requestId; }
 
-    public String getCourseId() { return this.courseId; }
+    public String getCourseId() { return courseId; }
     public void setCourseId(String courseId) { this.courseId = courseId; }
 
-    public Integer getTotalEnrollments() { return this.totalEnrollments; }
+    public Integer getTotalEnrollments() { return totalEnrollments; }
     public void setTotalEnrollments(Integer totalEnrollments) { this.totalEnrollments = totalEnrollments; }
 
-    public Integer getActiveEnrollments() { return this.activeEnrollments; }
+    public Integer getActiveEnrollments() { return activeEnrollments; }
     public void setActiveEnrollments(Integer activeEnrollments) { this.activeEnrollments = activeEnrollments; }
 
-    public Integer getPendingRequests() { return this.pendingRequests; }
+    public Integer getPendingRequests() { return pendingRequests; }
     public void setPendingRequests(Integer pendingRequests) { this.pendingRequests = pendingRequests; }
 
-    public Integer getAvailableSlots() { return this.availableSlots; }
+    public Integer getAvailableSlots() { return availableSlots; }
     public void setAvailableSlots(Integer availableSlots) { this.availableSlots = availableSlots; }
 
-    public LocalDateTime getTimestamp() { return this.timestamp; }
+    public LocalDateTime getTimestamp() { return timestamp; }
     public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
 }

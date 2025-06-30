@@ -8,7 +8,10 @@ import it.unimol.new_unimol.enrollments.dto.rabbit.EnrollmentNotificationDto;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.function.EntityResponse;
 
 import java.time.LocalDateTime;
 import java.util.Map;
@@ -56,7 +59,7 @@ public class RabbitMQService {
 
         } catch (Exception e) {
             pendingResponses.remove(correlationId);
-            throw new ExternalServiceException("Errore nella validazione corso: " + e.getMessage());
+            throw new ResponseStatusException(HttpStatus.SERVICE_UNAVAILABLE, "Errore nella validazione del corso: " + e.getMessage(), e);
         }
     }
 

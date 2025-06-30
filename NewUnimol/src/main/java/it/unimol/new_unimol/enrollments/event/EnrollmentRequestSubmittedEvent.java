@@ -19,16 +19,16 @@ public class EnrollmentRequestSubmittedEvent implements Serializable {
         this.requestDate = requestDate;
     }
 
-    public String getRequestId() { return this.requestId; }
+    public String getRequestId() { return requestId; }
     public void setRequestId(String requestId) { this.requestId = requestId; }
 
-    public String getCourseId() { return this.courseId; }
+    public String getCourseId() { return courseId; }
     public void setCourseId(String courseId) { this.courseId = courseId; }
 
-    public String getStudentId() { return this.studentId; }
+    public String getStudentId() { return studentId; }
     public void setStudentId(String studentId) { this.studentId = studentId; }
 
-    public LocalDateTime getRequestDate() { return this.requestDate; }
+    public LocalDateTime getRequestDate() { return requestDate; }
     public void setRequestDate(LocalDateTime requestDate) { this.requestDate = requestDate; }
 
 }

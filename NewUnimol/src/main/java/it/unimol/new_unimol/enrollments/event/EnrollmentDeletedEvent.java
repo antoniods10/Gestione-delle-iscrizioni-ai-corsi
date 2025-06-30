@@ -21,19 +21,19 @@ public class EnrollmentDeletedEvent implements Serializable {
         this.deletionDate = deletionDate;
     }
 
-    public String getEnrollmentId() { return this.enrollmentId; }
+    public String getEnrollmentId() { return enrollmentId; }
     public void setEnrollmentId(String enrollmentId) { this.enrollmentId = enrollmentId; }
 
-    public String getCourseId() { return this.courseId; }
+    public String getCourseId() { return courseId; }
     public void setCourseId(String courseId) { this.courseId = courseId; }
 
-    public String getStudentId() { return this.studentId; }
+    public String getStudentId() { return studentId; }
     public void setStudentId(String studentId) { this.studentId = studentId; }
 
-    public String getDeletedBy() { return this.deletedBy; }
+    public String getDeletedBy() { return deletedBy; }
     public void setDeletedBy(String deletedBy) { this.deletedBy = deletedBy; }
 
-    public LocalDateTime getDeletionDate() { return this.deletionDate; }
+    public LocalDateTime getDeletionDate() { return deletionDate; }
     public void setDeletionDate(LocalDateTime deletionDate) { this.deletionDate = deletionDate; }
 
 }

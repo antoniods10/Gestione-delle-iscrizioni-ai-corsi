@@ -23,21 +23,21 @@ public class EnrollmentApprovedEvent implements Serializable {
         this.approvalDate = approvalDate;
     }
 
-    public String getEnrollmentId() { return this.enrollmentId; }
+    public String getEnrollmentId() { return enrollmentId; }
     public void setEnrollmentId(String enrollmentId) { this.enrollmentId = enrollmentId; }
 
-    public String getRequestId() { return this.requestId; }
+    public String getRequestId() { return requestId; }
     public void setRequestId(String requestId) { this.requestId = requestId; }
 
-    public String getCourseId() { return this.courseId; }
+    public String getCourseId() { return courseId; }
     public void setCourseId(String courseId) { this.courseId = courseId; }
 
-    public String getStudentId() { return this.studentId; }
+    public String getStudentId() { return studentId; }
     public void setStudentId(String studentId) { this.studentId = studentId; }
 
-    public String getApprovedBy() { return this.approvedBy; }
+    public String getApprovedBy() { return approvedBy; }
     public void setApprovedBy(String approvedBy) { this.approvedBy = approvedBy; }
 
-    public LocalDateTime getApprovalDate() { return this.approvalDate; }
+    public LocalDateTime getApprovalDate() { return approvalDate; }
     public void setApprovalDate(LocalDateTime approvalDate) { this.approvalDate = approvalDate; }
 }

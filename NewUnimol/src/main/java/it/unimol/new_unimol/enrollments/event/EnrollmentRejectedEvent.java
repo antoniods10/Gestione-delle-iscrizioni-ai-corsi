@@ -23,22 +23,22 @@ public class EnrollmentRejectedEvent implements Serializable {
         this.rejectionDate = rejectionDate;
     }
 
-    public String getRequestId() { return this.requestId; }
+    public String getRequestId() { return requestId; }
     public void setRequestId(String requestId) { this.requestId = requestId; }
 
-    public String getCourseId() { return this.courseId; }
+    public String getCourseId() { return courseId; }
     public void setCourseId(String courseId) { this.courseId = courseId; }
 
-    public String getStudentId() { return this.studentId; }
+    public String getStudentId() { return studentId; }
     public void setStudentId(String studentId) { this.studentId = studentId; }
 
-    public String getRejectedBy() { return this.rejectedBy; }
+    public String getRejectedBy() { return rejectedBy; }
     public void setRejectedBy(String rejectedBy) { this.rejectedBy = rejectedBy; }
 
-    public String getReason() { return this.reason; }
+    public String getReason() { return reason; }
     public void setReason(String reason) { this.reason = reason; }
 
-    public LocalDateTime getRejectionDate() { return this.rejectionDate; }
+    public LocalDateTime getRejectionDate() { return rejectionDate; }
     public void setRejectionDate(LocalDateTime rejectionDate) { this.rejectionDate = rejectionDate; }
 
 }
