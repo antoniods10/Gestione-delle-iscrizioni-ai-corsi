@@ -122,7 +122,7 @@ Documentazione API: Swagger / OpenAPI
 
 \- requiresApproval (Boolean) – Richiede approvazione
 
-` `- maxEnrollments (Integer) – Limite massimo iscrizioni *// limite studenti* 
+\- maxEnrollments (Integer) – Limite massimo iscrizioni *// limite studenti* 
 
 \- enrollmentStartDate (LocalDateTime) – Data inizio iscrizioni
 
