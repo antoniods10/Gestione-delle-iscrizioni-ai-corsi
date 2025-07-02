@@ -186,23 +186,23 @@ Documentazione API: Swagger / OpenAPI
 |/api/v1/teachers/courses/{courseId}/enrollments/manual-enroll|POST|manualEnrollStudent()|<p>Authorization, courseId: String</p><p>enrollmentDTO: CourseEnrollmentDTO</p><p>Parametri:</p><p>id: String</p><p>courseId: String</p><p>studentId: String</p><p>teacherId: String</p><p>enrollmentType: EnrollmentType</p><p>status: EnrollmentStatus</p><p>enrollmentDate: LocalDateTime</p><p>approvedDate: LocalDateTime</p><p>notes: String</p>|Header, Path Variable, Request Body|CourseEnrollmentDTO|Iscrive manualmente uno studente a un corso|
 |/api/v1/teachers/courses/{courseId}/enrollments/bulk-manual-enroll|POST|bulkManualEnrollStudents()|<p>Authorization, courseId: String</p><p>enrollmentDTOs: List<CourseEnrollmentDTO</p><p>Ogni elemento contiene:</p><p>id: String</p><p>courseId: String</p><p>studentId: String</p><p>teacherId: String</p><p>enrollmentType: EnrollmentType</p><p>status: EnrollmentStatus</p><p>enrollmentDate: LocalDateTime</p><p>approvedDate: LocalDateTime</p><p>notes: String</p>|Header, Path Variable, Request Body|List<CourseEnrollmentDTO>|Iscrive manualmente più studenti a un corso|
 |/api/v1/teachers/courses/{courseId}/enrollments|GET|getOwnCourseEnrollments()|Authorization, courseId: String|Header, Path Variable|List<CourseEnrollmentDTO>|Visualizza le iscrizioni ad un corso gestito dal docente|
-|/api/v1/teachers/courses/{courseId}/enrollment-request|GET|getOwnCoursePendingRequests()|Authorization, courseId: String|Header, Path Variable|List<EnrollmentRequestDTO>|Visualizza richieste pendenti per un proprio corso|
+|/api/v1/teachers/courses/{courseId}/enrollment-requests/pending|GET|getOwnCoursePendingRequests()|Authorization, courseId: String|Header, Path Variable|List<EnrollmentRequestDTO>|Visualizza richieste pendenti per un proprio corso|
 |/api/v1/teachers/enrollment-request/{requestId}/approve|PUT|approveEnrollmentRequestByTeacher()|Authorization, requestId: String|Header, Path Variable|EnrollmentRequestDTO|Il docente approva una richiesta di iscrizione|
 |/api/v1/teachers/enrollment-requests/{requestId}/reject|PUT|rejectEnrollmentRequestByTeacher()|Authorization, requestId: String rejectionReason: String|<p>Header, Path Variable</p><p>Request Body</p>|EnrollmentRequestDTO|Il docente rifiuta una richiesta specificando il motivo|
-|/api/v1/teachers/enrollments/{enrollmentId}|DELETE|deleteEnrollmentFromOwnCourse()|Authorization, enrollmentId: String|Header, Path Variable|Void|Rimuove una iscrizione dal proprio corso|
+|/api/v1/teachers/enrollments/{enrollmentId}/remove|DELETE|deleteEnrollmentFromOwnCourse()|Authorization, enrollmentId: String|Header, Path Variable|Void|Rimuove una iscrizione dal proprio corso|
 |/api/v1/teachers/courses/{courseId}/enrollment-stats|GET|getOwnCourseEnrollm|Authorization, courseId: String|Header, Path Variable|Map<String, Object>|Restituisce le statistiche di iscrizione per un corso gestito|
 
 **Iscrizione Self-Service (Studenti)**
 
 |**Endpoint**|**Metodo**|**Funzione**|**Parametri Input**|**Tipo Parametro**|**Return Type**|**Descrizione**|
 | :- | :- | :- | :- | :- | :- | :- |
-|/api/v1/students/courses/{courseId}/enroll|POST|selfEnrollToCourse()|Authorization, courseId: String|Path Variable|CourseEnrollmentDTO|Iscrizione self-service a un corso|
+|/api/v1/students/courses/{courseId}/self-enroll|POST|selfEnrollToCourse()|Authorization, courseId: String|Path Variable|CourseEnrollmentDTO|Iscrizione self-service a un corso|
 |/api/v1/students/courses/isSelfService|GET|checkSelfServiceAvailability()|Authorization, courseId: String|Header, Query Parameter|Boolean|Controlla se un corso ha l’iscrizione self-service|
 |/api/v1/students/enrollments|GET|getPersonalEnrollments()|Authorization|Header|List<CourseEnrollmentDTO>|Visualizza le proprie iscrizioni|
-|/api/v1/students/enrollments/{enrollmentId}|DELETE|cancelPersonalEnrollment()|Authorization,enrollmentId: String|Header, Path Variable|Void|Cancella la propria iscrizione attiva|
+|/api/v1/students/enrollments/{enrollmentId}/delete|DELETE|cancelPersonalEnrollment()|Authorization,enrollmentId: String|Header, Path Variable|Void|Cancella la propria iscrizione attiva|
 |/api/v1/students/courses/{courseId}/enrollment-request|POST|requestEnrollmentToCourse()|<p>Authorization,courseId: String</p><p>requestDTO: EnrollmentRequestDTO</p><p>Parametri:</p><p>id: String</p><p>courseId: String</p><p>studentId: String requestDate: LocalDateTime</p><p>status: RequestStatus</p><p>rejectionReason: String</p><p>processedBy: String</p><p>processedDate:LocalDateTime</p>|Header, Path Variable, Request Body|EnrollmentRequestDTO|Invia una richiesta di iscrizione a un corso |
 |/api/v1/students/enrollment-requests|GET|getPersonalEnrollmentRequests()|Authorization|Header|List<EnrollmentRequestDTO>|Visualizza le proprie iscrizione inviate|
-|/api/v1/students/enrollment-request/{requestId}|DELETE|cancelPendingEnrollmentRequest(|Authorization,requestId: String|Authorization, Path Variable|Void|Annulla una richiesta di iscrizione pendente|
+|/api/v1/students/enrollment-request/{requestId}/pending/delete|DELETE|cancelPendingEnrollmentRequest(|Authorization,requestId: String|Authorization, Path Variable|Void|Annulla una richiesta di iscrizione pendente|
 
 **Informazioni Pubbliche (Utenti Autenticati)**
 
