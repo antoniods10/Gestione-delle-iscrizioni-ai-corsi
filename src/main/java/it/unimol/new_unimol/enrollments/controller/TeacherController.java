@@ -29,7 +29,7 @@
 //    @Operation(description = "Questa funzione visualizza le iscrizioni ad un corso gestito dal docente")
 //    public ResponseEntity<List<CourseEnrollmentDto>> getOwnCoursesCourseEnrollments() {}
 //
-//    @GetMapping("/courses/{courseId}/enrollment-request")
+//    @GetMapping("/courses/{courseId}/enrollment-requests/pending")
 //    @Operation(description = "Questa funzione visualizza richieste pendenti per un proprio corso")
 //    public ResponseEntity<List<EnrollmentRequestDto>> getOwnCoursesPendingRequests() {}
 //
@@ -41,7 +41,7 @@
 //    @Operation(description = "Questa funzione permette al docente di rifiutare una richiesta di iscrizione")
 //    public ResponseEntity<EnrollmentRequestDto> rejectEnrollmentRequestByTeacher() {}
 //
-//    @DeleteMapping("/enrollments/{enrollmentId}")
+//    @DeleteMapping("/enrollments/{enrollmentId}/remove")
 //    @Operation(description = "Questa funzione permette al docente di rimuovere una iscrizione dal proprio corso")
 //    public ResponseEntity<Void> deleteEnrollmentFromOwnCourse() {}
 //

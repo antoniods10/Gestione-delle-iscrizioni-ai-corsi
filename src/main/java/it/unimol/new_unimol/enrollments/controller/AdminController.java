@@ -59,34 +59,39 @@ public class AdminController {
             @PathVariable String courseId,
             @Valid @RequestBody CourseEnrollmentSettingsDto settingsDto) {
 
-        String token = extractTokenFromHeader(authorization);
+        try {
+            String token = extractTokenFromHeader(authorization);
+            if(token == null) {
 
-        if(!tokenJWTService.isTokenValid(token)) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
+            }
+            if(!tokenJWTService.isTokenValid(token)) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
+            }
+
+            if(!tokenJWTService.hasRole(token, "ADMIN")) {
+                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli amministratori");
+            }
+
+            String adminId = tokenJWTService.extractUserId(token);
+            CourseEnrollmentSettingsDto created = adminService.createEnrollmentSettings(courseId, settingsDto, adminId);
+            return ResponseEntity.status(HttpStatus.CREATED).body(created);
         }
 
-        if(!tokenJWTService.hasRole(token, "ADMIN")) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli amministratori");
-        }
-
-        String adminId = tokenJWTService.extractUserId(token);
-        CourseEnrollmentSettingsDto created = adminService.createEnrollmentSettings(courseId, settingsDto, adminId);
-        return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
 //    @GetMapping("/enrollment-settings")
 //    @Operation(description = "Questa funzione restituisce la lista di tutte le configurazioni di iscrizione ad un corso")
 //    public ResponseEntity<List<CourseEnrollmentSettingsDto>> getAllEnrollmentSettings() {}
 //
-//    @PutMapping("/courses/{courseId}/enrollment-settings")
+//    @PutMapping("/courses/{courseId}/enrollment-settings-update")
 //    @Operation(description = "Questa funzione aggiorna la configurazione di iscrizione per un corso")
 //    public ResponseEntity<CourseEnrollmentSettingsDto> updateEnrollmentSettings() {}
 //
-//    @GetMapping("/courses/{courseId}/enrollment-settings")
+//    @GetMapping("/courses/{courseId}/enrollment-settings-details")
 //    @Operation(description = "Questa funzione restituisce i dettagli della configurazione di iscrizione per un corso")
 //    public ResponseEntity<CourseEnrollmentSettingsDto> getEnrollmentSettingsByCourse() {}
 //
-//    @DeleteMapping("/courses/{courseId}/enrollment-settings")
+//    @DeleteMapping("/courses/{courseId}/enrollment-settings-delete")
 //    @Operation(description = "Questa funzione elimina la configurazione di iscrizione per un corso")
 //    public ResponseEntity<Void> deleteEnrollmentSettings() {}
 //

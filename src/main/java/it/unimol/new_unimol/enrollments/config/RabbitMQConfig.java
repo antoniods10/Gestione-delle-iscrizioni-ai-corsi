@@ -47,9 +47,24 @@ public class RabbitMQConfig {
     @Value("${rabbitmq.routing.notification}")
     private String notificationRoutingKey;
 
+    @Value("${rabbitmq.queue.course.deleted}")
+    private String courseDeletedQueue;
+
+    @Value("${rabbitmq.queue.course.deactivated}")
+    private String courseDeactivatedQueue;
+
+    @Value("${rabbitmq.queue.course.teacher.changed}")
+    private String courseTeacherChangedQueue;
+
+    @Value("${rabbitmq.queue.user.deleted}")
+    private String userDeletedQueue;
+
+    @Value("${rabbitmq.queue.enrollment.stats.requested}")
+    private String enrollmentStatsRequestedQueue;
+
     //Exchanges
     @Bean
-    public TopicExchange ernollmentExchange(){
+    public TopicExchange enrollmentExchange(){
         return new TopicExchange(enrollmentExchange);
     }
 
@@ -126,6 +141,71 @@ public class RabbitMQConfig {
                 .bind(notificationQueue())
                 .to(microserviciesExchange())
                 .with(notificationRoutingKey);
+    }
+
+    @Bean
+    public Queue courseDeletedQueue() {
+        return QueueBuilder.durable(courseDeletedQueue).build();
+    }
+
+    @Bean
+    public Binding courseDeletedBinding() {
+        return BindingBuilder
+                .bind(courseDeletedQueue())
+                .to(microserviciesExchange())
+                .with("course deleted");
+    }
+
+    @Bean
+    public Queue courseDeactivatedQueue() {
+        return QueueBuilder.durable(courseDeactivatedQueue).build();
+    }
+
+    @Bean
+    public Binding courseDeactivatedBinding() {
+        return BindingBuilder
+                .bind(courseDeactivatedQueue())
+                .to(microserviciesExchange())
+                .with("course.deactivated");
+    }
+
+    @Bean
+    public Queue courseTeacherChangedQueue() {
+        return QueueBuilder.durable(courseTeacherChangedQueue).build();
+    }
+
+    @Bean
+    public Binding courseTeacherChangedBinding() {
+        return BindingBuilder
+                .bind(courseTeacherChangedQueue())
+                .to(microserviciesExchange())
+                .with("course.teacher.changed");
+    }
+
+    @Bean
+    public Queue userDeletedQueue() {
+        return QueueBuilder.durable(userDeletedQueue).build();
+    }
+
+    @Bean
+    public Binding userDeletedBinding() {
+        return BindingBuilder
+                .bind(userDeletedQueue())
+                .to(microserviciesExchange())
+                .with("user.deleted");
+    }
+
+    @Bean
+    public Queue enrollmentStatsRequestedQueue() {
+        return QueueBuilder.durable(enrollmentStatsRequestedQueue).build();
+    }
+
+    @Bean
+    public Binding enrollmentStatsRequestedBinding() {
+        return BindingBuilder
+                .bind(enrollmentStatsRequestedQueue())
+                .to(enrollmentExchange())
+                .with("enrollment.stats.requested");
     }
 
     //Converter per JSON
