@@ -190,7 +190,6 @@ Documentazione API: Swagger / OpenAPI
 |/api/v1/teachers/enrollment-request/{requestId}/approve|PUT|approveEnrollmentRequestByTeacher()|Authorization, requestId: String|Header, Path Variable|EnrollmentRequestDTO|Il docente approva una richiesta di iscrizione|
 |/api/v1/teachers/enrollment-requests/{requestId}/reject|PUT|rejectEnrollmentRequestByTeacher()|Authorization, requestId: String rejectionReason: String|<p>Header, Path Variable</p><p>Request Body</p>|EnrollmentRequestDTO|Il docente rifiuta una richiesta specificando il motivo|
 |/api/v1/teachers/enrollments/{enrollmentId}/remove|DELETE|deleteEnrollmentFromOwnCourse()|Authorization, enrollmentId: String|Header, Path Variable|Void|Rimuove una iscrizione dal proprio corso|
-|/api/v1/teachers/courses/{courseId}/enrollment-stats|GET|getOwnCourseEnrollm|Authorization, courseId: String|Header, Path Variable|Map<String, Object>|Restituisce le statistiche di iscrizione per un corso gestito|
 
 **Iscrizione Self-Service (Studenti)**
 
