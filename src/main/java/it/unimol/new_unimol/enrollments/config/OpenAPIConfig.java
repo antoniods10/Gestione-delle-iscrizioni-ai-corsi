@@ -12,17 +12,16 @@ public class OpenAPIConfig {
 
     @Bean
     public OpenAPI customOpenAPI() {
-        final String securitySchemeName = "bearerAuth";
 
         return new OpenAPI()
                 .info(new Info()
                         .title("Course Enrollment API")
                         .version("1.0.0")
                         .description("Microservizio per la gestione delle iscrizioni ai corsi"))
-                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()
-                        .addSecuritySchemes(securitySchemeName, new SecurityScheme()
-                                        .name(securitySchemeName)
+                        .addSecuritySchemes("bearerAuth", new SecurityScheme()
+                                        .name("bearerAuth")
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
                                         .bearerFormat("JWT")));
