@@ -26,19 +26,20 @@ public class AllController {
 
     /**
      * Estrae il token JWT dall'header Authorization
+     *
      * @param authHeader Header Authorization
      * @return Token JWT estratto
      */
     private String extractTokenFromHeader(String authHeader) {
-        if(authHeader == null) {
+        if (authHeader == null) {
             throw new IllegalArgumentException("Header Authorization mancante");
         }
         authHeader = authHeader.trim();
-        if(!authHeader.startsWith("Bearer ")) {
+        if (!authHeader.startsWith("Bearer ")) {
             throw new IllegalArgumentException("Header Authorization non valido (manca 'Bearer')");
         }
         String token = authHeader.substring(7).trim();
-        if(token.isEmpty()) {
+        if (token.isEmpty()) {
             throw new IllegalArgumentException("Token JWT mancante nell'Header Authorization");
         }
         return token;
@@ -56,7 +57,7 @@ public class AllController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 

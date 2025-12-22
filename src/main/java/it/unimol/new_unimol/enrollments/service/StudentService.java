@@ -57,41 +57,41 @@ public class StudentService {
      * Iscrizione self-service ad un corso
      */
     public CourseEnrollmentDto selfEnrollToCourse(String courseId, String studentId) {
-        if(enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
+        if (enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
             throw new IllegalStateException("Sei già iscritto a questo corso");
         }
 
         CourseValidationResponseDto courseValidation = rabbitMQService.validateCourse(courseId);
-        if(!courseValidation.isValid()) {
+        if (!courseValidation.isValid()) {
             throw new IllegalArgumentException("Corso non valido: " + courseValidation.errorMessage());
         }
 
         CourseEnrollmentSettings settings = settingsRepository.findByCourseId(courseId).orElse(null);
-        if(settings == null) {
+        if (settings == null) {
             throw new IllegalArgumentException("Configurazione iscrizione non trovata per il corso");
         }
 
-        if(settings.getEnrollmentMode() == EnrollmentMode.DISABLED) {
+        if (settings.getEnrollmentMode() == EnrollmentMode.DISABLED) {
             throw new IllegalArgumentException("Le iscrizioni per questo corso sono disabilitate");
         }
 
-        if(settings.getEnrollmentMode() == EnrollmentMode.MANUAL) {
+        if (settings.getEnrollmentMode() == EnrollmentMode.MANUAL) {
             throw new IllegalArgumentException("Questo corso accetta solo iscrizioni da parte del docente");
         }
 
         LocalDateTime now = LocalDateTime.now();
-        if(settings.getEnrollmentStartDate() != null && now.isBefore(settings.getEnrollmentStartDate())) {
+        if (settings.getEnrollmentStartDate() != null && now.isBefore(settings.getEnrollmentStartDate())) {
             throw new IllegalArgumentException("Le iscrizioni non sono ancora aperte");
         }
 
-        if(settings.getEnrollmentEndDate() != null && now.isAfter(settings.getEnrollmentEndDate())) {
+        if (settings.getEnrollmentEndDate() != null && now.isAfter(settings.getEnrollmentEndDate())) {
             throw new IllegalArgumentException("Il periodo di iscrizione è terminato");
         }
 
-        if(settings.getEnrollmentMode() == EnrollmentMode.BOTH && settings.getMaxEnrollments() != null) {
+        if (settings.getEnrollmentMode() == EnrollmentMode.BOTH && settings.getMaxEnrollments() != null) {
             int currentEnrollments = enrollmentRepository.countByCourseIdAndStatus(courseId, EnrollmentStatus.ACTIVE);
-            if(currentEnrollments >= settings.getMaxEnrollments()) {
-                if(!settings.getAllowWaitingList()) {
+            if (currentEnrollments >= settings.getMaxEnrollments()) {
+                if (!settings.getAllowWaitingList()) {
                     throw new IllegalStateException("Raggiunto il limite massimo di iscrizioni per questo corso");
                 }
                 //Se c'è la lista d'attesa procedi ma con lo status pending
@@ -119,10 +119,10 @@ public class StudentService {
             }
         }
 
-        if(settings.getEnrollmentMode() == EnrollmentMode.SELF_SERVICE && settings.getMaxEnrollments() != null) {
+        if (settings.getEnrollmentMode() == EnrollmentMode.SELF_SERVICE && settings.getMaxEnrollments() != null) {
             int currentEnrollments = enrollmentRepository.countByCourseIdAndStatus(courseId, EnrollmentStatus.ACTIVE);
-            if(currentEnrollments >= settings.getMaxEnrollments()) {
-                if(!settings.getAllowWaitingList()) {
+            if (currentEnrollments >= settings.getMaxEnrollments()) {
+                if (!settings.getAllowWaitingList()) {
                     throw new IllegalStateException("Raggiunto il limite massimo di iscrizioni per questo corso");
                 }
                 //Se c'è la lista d'attesa procedi ma con lo status pending
@@ -150,7 +150,7 @@ public class StudentService {
             }
         }
 
-        if(settings.getRequiresApproval()){
+        if (settings.getRequiresApproval()) {
             throw new IllegalArgumentException("Questo corso richiede approvazione. Usa l'endpoint per creare una richiesta di iscrizione");
         }
 
@@ -190,7 +190,7 @@ public class StudentService {
      * Verifica se il corso ha iscrizione self-service disponibile
      */
     public boolean checkSelfServiceAvailability(String studentId, String courseId) {
-        if(enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
+        if (enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
             return false;
         }
 
@@ -199,22 +199,22 @@ public class StudentService {
             return false;
         }
 
-        if(settings.getEnrollmentMode() != EnrollmentMode.SELF_SERVICE && settings.getEnrollmentMode() != EnrollmentMode.BOTH) {
+        if (settings.getEnrollmentMode() != EnrollmentMode.SELF_SERVICE && settings.getEnrollmentMode() != EnrollmentMode.BOTH) {
             return false;
         }
 
         LocalDateTime now = LocalDateTime.now();
-        if(settings.getEnrollmentStartDate() != null && now.isBefore(settings.getEnrollmentStartDate())) {
+        if (settings.getEnrollmentStartDate() != null && now.isBefore(settings.getEnrollmentStartDate())) {
             return false;
         }
 
-        if(settings.getEnrollmentEndDate() != null && now.isAfter(settings.getEnrollmentEndDate())) {
+        if (settings.getEnrollmentEndDate() != null && now.isAfter(settings.getEnrollmentEndDate())) {
             return false;
         }
 
-        if(settings.getMaxEnrollments() != null && !settings.getAllowWaitingList()) {
+        if (settings.getMaxEnrollments() != null && !settings.getAllowWaitingList()) {
             int currentEnrollments = enrollmentRepository.countByCourseIdAndStatus(courseId, EnrollmentStatus.ACTIVE);
-            if(currentEnrollments >= settings.getMaxEnrollments()) {
+            if (currentEnrollments >= settings.getMaxEnrollments()) {
                 return false;
             }
         }
@@ -237,11 +237,11 @@ public class StudentService {
     public boolean cancelPersonalEnrollment(String enrollmentId, String studentId) {
         CourseEnrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
 
-        if(enrollment == null || !enrollment.getStudentId().equals(studentId)) {
+        if (enrollment == null || !enrollment.getStudentId().equals(studentId)) {
             return false;
         }
 
-        if(!(enrollment.getStatus() == EnrollmentStatus.ACTIVE)) {
+        if (!(enrollment.getStatus() == EnrollmentStatus.ACTIVE)) {
             return false;
         }
 
@@ -270,25 +270,25 @@ public class StudentService {
      * Crea una richiesta di iscrizione per corsi che richiedono approvazione
      */
     public EnrollmentRequestDto createEnrollmentRequest(String courseId, String studentId) {
-        if(enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
+        if (enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
             throw new IllegalStateException("Sei già iscritto a questo corso");
         }
 
-        if(requestRepository.existsPendingRequest(courseId, studentId, RequestStatus.PENDING)) {
+        if (requestRepository.existsPendingRequest(courseId, studentId, RequestStatus.PENDING)) {
             throw new IllegalStateException("Hai già una richiesta di iscrizione pendente per questo corso");
         }
 
         CourseValidationResponseDto courseValidation = rabbitMQService.validateCourse(courseId);
-        if(!courseValidation.isValid()) {
+        if (!courseValidation.isValid()) {
             throw new IllegalArgumentException("Corso non valido: " + courseValidation.errorMessage());
         }
 
         CourseEnrollmentSettings settings = settingsRepository.findByCourseId(courseId).orElse(null);
-        if(settings == null) {
+        if (settings == null) {
             throw new IllegalArgumentException("Configurazione iscrizione non trovata per il corso");
         }
 
-        if(!settings.getRequiresApproval()) {
+        if (!settings.getRequiresApproval()) {
             throw new IllegalArgumentException("Questo corso non richiede approvazione. Usa l'endpoint di iscrizione diretta");
         }
 
@@ -334,11 +334,11 @@ public class StudentService {
     public boolean cancelPendingEnrollmentRequest(String requestId, String studentId) {
         EnrollmentRequest request = requestRepository.findById(requestId).orElse(null);
 
-        if(request == null || !request.getStudentId().equals(studentId)) {
+        if (request == null || !request.getStudentId().equals(studentId)) {
             return false;
         }
 
-        if(request.getStatus() != RequestStatus.PENDING) {
+        if (request.getStatus() != RequestStatus.PENDING) {
             throw new IllegalArgumentException("Puoi cancellare solo richieste pendenti");
         }
 

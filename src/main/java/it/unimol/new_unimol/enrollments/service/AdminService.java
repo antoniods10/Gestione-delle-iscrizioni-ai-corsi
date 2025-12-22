@@ -1,6 +1,8 @@
 package it.unimol.new_unimol.enrollments.service;
 
-import it.unimol.new_unimol.enrollments.dto.*;
+import it.unimol.new_unimol.enrollments.dto.CourseEnrollmentDto;
+import it.unimol.new_unimol.enrollments.dto.CourseEnrollmentSettingsDto;
+import it.unimol.new_unimol.enrollments.dto.EnrollmentRequestDto;
 import it.unimol.new_unimol.enrollments.dto.converter.CourseEnrollmentSettingsDtoToCourseEnrollmentSettingsConverter;
 import it.unimol.new_unimol.enrollments.dto.converter.CourseEnrollmentSettingsToCourseEnrollmentSettingsDtoConverter;
 import it.unimol.new_unimol.enrollments.dto.converter.CourseEnrollmentToCourseEnrollmentDtoConverter;
@@ -20,7 +22,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -61,36 +62,36 @@ public class AdminService {
      * Crea una nuova configurazione di iscrizione per un corso
      */
     public CourseEnrollmentSettingsDto createEnrollmentSettings(String courseId, CourseEnrollmentSettingsDto settingsDto, String adminId) {
-        if(settingsRepository.existsByCourseId(courseId)) {
+        if (settingsRepository.existsByCourseId(courseId)) {
             throw new IllegalStateException("Esiste già una configurazione per il corso: " + courseId);
         }
 
         CourseValidationResponseDto courseValidation = rabbitMQService.validateCourse(courseId);
-        if(!courseValidation.isValid()) {
+        if (!courseValidation.isValid()) {
             throw new IllegalArgumentException("Corso non valido: " + courseValidation.errorMessage());
         }
 
         LocalDateTime now = LocalDateTime.now();
 
-        if(settingsDto.enrollmentStartDate() != null) {
-            if(settingsDto.enrollmentStartDate().isBefore(now)) {
+        if (settingsDto.enrollmentStartDate() != null) {
+            if (settingsDto.enrollmentStartDate().isBefore(now)) {
                 throw new IllegalArgumentException("La data di inizio iscrizioni deve essere successiva alla data di creazione della configurazione di iscrizione al corso");
             }
         }
 
-        if(settingsDto.enrollmentEndDate() != null) {
-            if(settingsDto.enrollmentEndDate().isBefore(now)) {
+        if (settingsDto.enrollmentEndDate() != null) {
+            if (settingsDto.enrollmentEndDate().isBefore(now)) {
                 throw new IllegalArgumentException("La data di fine iscrizioni deve essere successiva alla data di creazione della configurazione di iscrizione al corso");
             }
         }
 
-        if(settingsDto.enrollmentStartDate() != null && settingsDto.enrollmentEndDate() != null) {
-            if(settingsDto.enrollmentStartDate().isAfter(settingsDto.enrollmentEndDate())) {
+        if (settingsDto.enrollmentStartDate() != null && settingsDto.enrollmentEndDate() != null) {
+            if (settingsDto.enrollmentStartDate().isAfter(settingsDto.enrollmentEndDate())) {
                 throw new IllegalArgumentException("La data di inizio iscrizioni deve essere precedente alla data di fine");
             }
         }
 
-        if(settingsDto.maxEnrollments() != null && settingsDto.maxEnrollments() <= 0) {
+        if (settingsDto.maxEnrollments() != null && settingsDto.maxEnrollments() <= 0) {
             throw new IllegalArgumentException("Il numero massimo di iscrizioni deve essere maggiore di 0");
         }
 
@@ -136,26 +137,26 @@ public class AdminService {
     public CourseEnrollmentSettingsDto updateEnrollmentSettings(String courseId, CourseEnrollmentSettingsDto settingsDto) {
         CourseEnrollmentSettings settings = settingsRepository.findByCourseId(courseId).orElse(null);
 
-        if(settings == null) {
+        if (settings == null) {
             return null;
         }
 
         LocalDateTime now = LocalDateTime.now();
 
-        if(settingsDto.enrollmentStartDate() != null) {
-            if(settingsDto.enrollmentStartDate().isBefore(now)) {
+        if (settingsDto.enrollmentStartDate() != null) {
+            if (settingsDto.enrollmentStartDate().isBefore(now)) {
                 throw new IllegalArgumentException("La data di inizio iscrizioni deve essere successiva alla data di creazione della configurazione di iscrizione al corso");
             }
         }
 
-        if(settingsDto.enrollmentEndDate() != null) {
-            if(settingsDto.enrollmentEndDate().isBefore(now)) {
+        if (settingsDto.enrollmentEndDate() != null) {
+            if (settingsDto.enrollmentEndDate().isBefore(now)) {
                 throw new IllegalArgumentException("La data di fine iscrizioni deve essere successiva alla data di creazione della configurazione di iscrizione al corso");
             }
         }
 
-        if(settingsDto.enrollmentStartDate() != null && settingsDto.enrollmentEndDate() != null) {
-            if(settingsDto.enrollmentStartDate().isAfter(settingsDto.enrollmentEndDate())){
+        if (settingsDto.enrollmentStartDate() != null && settingsDto.enrollmentEndDate() != null) {
+            if (settingsDto.enrollmentStartDate().isAfter(settingsDto.enrollmentEndDate())) {
                 throw new IllegalArgumentException("La data di inizio iscrizioni deve essere precedente alla data di fine");
             }
         }
@@ -179,7 +180,7 @@ public class AdminService {
     public CourseEnrollmentSettingsDto getEnrollmentSettingsByCourseId(String courseId) {
         CourseEnrollmentSettings settings = settingsRepository.findByCourseId(courseId).orElse(null);
 
-        if(settings == null) {
+        if (settings == null) {
             return null;
         }
 
@@ -193,7 +194,7 @@ public class AdminService {
     public boolean deleteEnrollmentSettings(String courseId) {
         CourseEnrollmentSettings settings = settingsRepository.findByCourseId(courseId).orElse(null);
 
-        if(settings == null) {
+        if (settings == null) {
             return false;
         }
 
@@ -222,7 +223,7 @@ public class AdminService {
     public boolean deleteEnrollment(String enrollmentId, String adminId) {
         CourseEnrollment enrollment = enrollmentRepository.findById(enrollmentId).orElse(null);
 
-        if(enrollment == null) {
+        if (enrollment == null) {
             return false;
         }
 
@@ -262,26 +263,26 @@ public class AdminService {
     public EnrollmentRequestDto approveEnrollmentRequest(String requestId, String adminId) {
         EnrollmentRequest request = requestRepository.findById(requestId).orElse(null);
 
-        if(request == null) {
+        if (request == null) {
             return null;
         }
 
-        if(request.getStatus() != RequestStatus.PENDING) {
+        if (request.getStatus() != RequestStatus.PENDING) {
             throw new IllegalArgumentException("La richiesta non è in stato di PENDING");
         }
 
-        if(enrollmentRepository.existsByCourseIdAndStudentId(request.getCourseId(), request.getStudentId())) {
+        if (enrollmentRepository.existsByCourseIdAndStudentId(request.getCourseId(), request.getStudentId())) {
             throw new IllegalStateException("Lo studente è già iscritto a questo corso");
         }
 
         CourseEnrollmentSettings settings = settingsRepository.findByCourseId(request.getCourseId()).orElse(null);
-        if(settings == null) {
+        if (settings == null) {
             throw new IllegalArgumentException("Configurazione non trovata per il corso");
         }
 
-        if(settings.getMaxEnrollments() != null) {
+        if (settings.getMaxEnrollments() != null) {
             int currentEnrollments = enrollmentRepository.countByCourseIdAndStatus(request.getCourseId(), EnrollmentStatus.ACTIVE);
-            if(currentEnrollments >= settings.getMaxEnrollments()) {
+            if (currentEnrollments >= settings.getMaxEnrollments()) {
                 throw new IllegalStateException("Raggiunto il limite massimo di iscrizioni per questo corso");
             }
         }
@@ -330,11 +331,11 @@ public class AdminService {
     public EnrollmentRequestDto rejectEnrollmentRequest(String requestId, String rejectreason, String adminId) {
         EnrollmentRequest request = requestRepository.findById(requestId).orElse(null);
 
-        if(request == null) {
+        if (request == null) {
             throw new IllegalArgumentException("Richiesta non trovata: " + requestId);
         }
 
-        if(request.getStatus() != RequestStatus.PENDING) {
+        if (request.getStatus() != RequestStatus.PENDING) {
             throw new IllegalArgumentException("La richiesta non è in stato PENDING");
         }
 

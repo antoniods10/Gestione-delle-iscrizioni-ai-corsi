@@ -10,7 +10,8 @@ public class EnrollmentDeletedEvent implements Serializable {
     private String deletedBy;
     private LocalDateTime deletionDate;
 
-    public EnrollmentDeletedEvent() {}
+    public EnrollmentDeletedEvent() {
+    }
 
     public EnrollmentDeletedEvent(String enrollmentId, String courseId, String studentId,
                                   String deletedBy, LocalDateTime deletionDate) {
@@ -21,19 +22,44 @@ public class EnrollmentDeletedEvent implements Serializable {
         this.deletionDate = deletionDate;
     }
 
-    public String getEnrollmentId() { return enrollmentId; }
-    public void setEnrollmentId(String enrollmentId) { this.enrollmentId = enrollmentId; }
+    public String getEnrollmentId() {
+        return enrollmentId;
+    }
 
-    public String getCourseId() { return courseId; }
-    public void setCourseId(String courseId) { this.courseId = courseId; }
+    public void setEnrollmentId(String enrollmentId) {
+        this.enrollmentId = enrollmentId;
+    }
 
-    public String getStudentId() { return studentId; }
-    public void setStudentId(String studentId) { this.studentId = studentId; }
+    public String getCourseId() {
+        return courseId;
+    }
 
-    public String getDeletedBy() { return deletedBy; }
-    public void setDeletedBy(String deletedBy) { this.deletedBy = deletedBy; }
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
-    public LocalDateTime getDeletionDate() { return deletionDate; }
-    public void setDeletionDate(LocalDateTime deletionDate) { this.deletionDate = deletionDate; }
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getDeletedBy() {
+        return deletedBy;
+    }
+
+    public void setDeletedBy(String deletedBy) {
+        this.deletedBy = deletedBy;
+    }
+
+    public LocalDateTime getDeletionDate() {
+        return deletionDate;
+    }
+
+    public void setDeletionDate(LocalDateTime deletionDate) {
+        this.deletionDate = deletionDate;
+    }
 
 }

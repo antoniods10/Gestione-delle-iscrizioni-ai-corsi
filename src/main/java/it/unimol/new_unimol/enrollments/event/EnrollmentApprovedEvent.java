@@ -11,7 +11,8 @@ public class EnrollmentApprovedEvent implements Serializable {
     private String approvedBy;
     private LocalDateTime approvalDate;
 
-    public EnrollmentApprovedEvent() {}
+    public EnrollmentApprovedEvent() {
+    }
 
     public EnrollmentApprovedEvent(String enrollmentId, String requestId, String courseId,
                                    String studentId, String approvedBy, LocalDateTime approvalDate) {
@@ -23,21 +24,51 @@ public class EnrollmentApprovedEvent implements Serializable {
         this.approvalDate = approvalDate;
     }
 
-    public String getEnrollmentId() { return enrollmentId; }
-    public void setEnrollmentId(String enrollmentId) { this.enrollmentId = enrollmentId; }
+    public String getEnrollmentId() {
+        return enrollmentId;
+    }
 
-    public String getRequestId() { return requestId; }
-    public void setRequestId(String requestId) { this.requestId = requestId; }
+    public void setEnrollmentId(String enrollmentId) {
+        this.enrollmentId = enrollmentId;
+    }
 
-    public String getCourseId() { return courseId; }
-    public void setCourseId(String courseId) { this.courseId = courseId; }
+    public String getRequestId() {
+        return requestId;
+    }
 
-    public String getStudentId() { return studentId; }
-    public void setStudentId(String studentId) { this.studentId = studentId; }
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
-    public String getApprovedBy() { return approvedBy; }
-    public void setApprovedBy(String approvedBy) { this.approvedBy = approvedBy; }
+    public String getCourseId() {
+        return courseId;
+    }
 
-    public LocalDateTime getApprovalDate() { return approvalDate; }
-    public void setApprovalDate(LocalDateTime approvalDate) { this.approvalDate = approvalDate; }
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getApprovedBy() {
+        return approvedBy;
+    }
+
+    public void setApprovedBy(String approvedBy) {
+        this.approvedBy = approvedBy;
+    }
+
+    public LocalDateTime getApprovalDate() {
+        return approvalDate;
+    }
+
+    public void setApprovalDate(LocalDateTime approvalDate) {
+        this.approvalDate = approvalDate;
+    }
 }

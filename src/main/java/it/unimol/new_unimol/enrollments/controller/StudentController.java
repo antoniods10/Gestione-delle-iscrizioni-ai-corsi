@@ -1,5 +1,6 @@
 package it.unimol.new_unimol.enrollments.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import it.unimol.new_unimol.enrollments.dto.CourseEnrollmentDto;
@@ -11,10 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.swagger.v3.oas.annotations.Operation;
-
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/students")
@@ -27,19 +25,20 @@ public class StudentController {
 
     /**
      * Estrae il token JWT dall'header Authorization
+     *
      * @param authHeader Header Authorization
      * @return Token JWT estratto
      */
     private String extractTokenFromHeader(String authHeader) {
-        if(authHeader == null) {
+        if (authHeader == null) {
             throw new IllegalArgumentException("Header Authorization mancante");
         }
         authHeader = authHeader.trim();
-        if(!authHeader.startsWith("Bearer ")) {
+        if (!authHeader.startsWith("Bearer ")) {
             throw new IllegalArgumentException("Header Authorization non valido (manca 'Bearer')");
         }
         String token = authHeader.substring(7).trim();
-        if(token.isEmpty()) {
+        if (token.isEmpty()) {
             throw new IllegalArgumentException("Token JWT mancante nell'Header Authorization");
         }
         return token;
@@ -62,11 +61,11 @@ public class StudentController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "student")) {
+            if (!tokenJWTService.hasRole(token, "student")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli studenti");
             }
 
@@ -98,15 +97,15 @@ public class StudentController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "student")) {
+            if (!tokenJWTService.hasRole(token, "student")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli studenti");
             }
 
-            if(courseId == null || courseId.trim().isEmpty()) {
+            if (courseId == null || courseId.trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Il parametro courseId è obbligatorio");
             }
 
@@ -132,11 +131,11 @@ public class StudentController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "student")) {
+            if (!tokenJWTService.hasRole(token, "student")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli studenti");
             }
 
@@ -165,18 +164,18 @@ public class StudentController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "student")) {
+            if (!tokenJWTService.hasRole(token, "student")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli studenti");
             }
 
             String studentId = tokenJWTService.extractUserId(token);
             boolean cancelled = studentService.cancelPersonalEnrollment(enrollmentId, studentId);
 
-            if(!cancelled) {
+            if (!cancelled) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Iscrizione non trovata o non appartiene a questo studente");
             }
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Iscrizione cancellata con successo");
@@ -204,11 +203,11 @@ public class StudentController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "student")) {
+            if (!tokenJWTService.hasRole(token, "student")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli studenti");
             }
 
@@ -239,11 +238,11 @@ public class StudentController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "student")) {
+            if (!tokenJWTService.hasRole(token, "student")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli studenti");
             }
 
@@ -272,24 +271,24 @@ public class StudentController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "student")) {
+            if (!tokenJWTService.hasRole(token, "student")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli studenti");
             }
 
             String studentId = tokenJWTService.extractUserId(token);
             boolean cancelled = studentService.cancelPendingEnrollmentRequest(requestId, studentId);
 
-            if(!cancelled) {
+            if (!cancelled) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Richiesta non trovata o non appartiene a questo studente");
             }
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Richiesta annullata con successo");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
-        }catch (Exception e) {
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'annullamento: " + e.getMessage());
         }
     }

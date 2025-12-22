@@ -43,9 +43,11 @@ public class CourseEnrollmentSettings {
     @Column(name = "last_modified_date", nullable = false)
     private LocalDateTime lastModifiedDate;
 
-    public CourseEnrollmentSettings() {}
+    public CourseEnrollmentSettings() {
+    }
 
-    public CourseEnrollmentSettings(String id, String courseId, EnrollmentMode enrollmentMode, Boolean requiresApproval, Integer maxEnrollments, LocalDateTime enrollmentStartDate, LocalDateTime enrollmentEndDate, Boolean allowWaitingList, String createdBy, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
+    public CourseEnrollmentSettings(String id, String courseId, EnrollmentMode enrollmentMode, Boolean requiresApproval, Integer maxEnrollments, LocalDateTime enrollmentStartDate,
+                                    LocalDateTime enrollmentEndDate, Boolean allowWaitingList, String createdBy, LocalDateTime createdDate, LocalDateTime lastModifiedDate) {
         this.id = id;
         this.courseId = courseId;
         this.enrollmentMode = enrollmentMode;
@@ -59,37 +61,92 @@ public class CourseEnrollmentSettings {
         this.lastModifiedDate = lastModifiedDate;
     }
 
-    public String getId() {return this.id;}
-    public void setId(String id) {this.id = id;}
+    public String getId() {
+        return this.id;
+    }
 
-    public String getCourseId() {return this.courseId;}
-    public void setCourseId(String courseId) {this.courseId = courseId;}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public EnrollmentMode getEnrollmentMode() {return this.enrollmentMode;}
-    public void setEnrollmentMode(EnrollmentMode enrollmentMode) {this.enrollmentMode = enrollmentMode;}
+    public String getCourseId() {
+        return this.courseId;
+    }
 
-    public Boolean getRequiresApproval() {return this.requiresApproval;}
-    public void setRequiresApproval(Boolean requiresApproval) {this.requiresApproval = requiresApproval;}
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
-    public Integer getMaxEnrollments() {return this.maxEnrollments;}
-    public void setMaxEnrollments(Integer maxEnrollments) {this.maxEnrollments = maxEnrollments;}
+    public EnrollmentMode getEnrollmentMode() {
+        return this.enrollmentMode;
+    }
 
-    public LocalDateTime getEnrollmentStartDate() {return this.enrollmentStartDate;}
-    public void setEnrollmentStartDate(LocalDateTime enrollmentStartDate) {this.enrollmentStartDate = enrollmentStartDate;}
+    public void setEnrollmentMode(EnrollmentMode enrollmentMode) {
+        this.enrollmentMode = enrollmentMode;
+    }
 
-    public LocalDateTime getEnrollmentEndDate() {return this.enrollmentEndDate;}
-    public void setEnrollmentEndDate(LocalDateTime enrollmentEndDate) {this.enrollmentEndDate = enrollmentEndDate;}
+    public Boolean getRequiresApproval() {
+        return this.requiresApproval;
+    }
 
-    public Boolean getAllowWaitingList() {return this.allowWaitingList;}
-    public void setAllowWaitingList(Boolean allowWaitingList) {this.allowWaitingList = allowWaitingList;}
+    public void setRequiresApproval(Boolean requiresApproval) {
+        this.requiresApproval = requiresApproval;
+    }
 
-    public String getCreatedBy() {return this.createdBy;}
-    public void setCreatedBy(String createdBy) {this.createdBy = createdBy;}
+    public Integer getMaxEnrollments() {
+        return this.maxEnrollments;
+    }
 
-    public LocalDateTime getCreatedDate() {return this.createdDate;}
-    public void setCreatedDate(LocalDateTime createdDate) {this.createdDate = createdDate;}
+    public void setMaxEnrollments(Integer maxEnrollments) {
+        this.maxEnrollments = maxEnrollments;
+    }
 
-    public LocalDateTime getLastModifiedDate() {return this.lastModifiedDate;}
-    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {this.lastModifiedDate = lastModifiedDate;}
+    public LocalDateTime getEnrollmentStartDate() {
+        return this.enrollmentStartDate;
+    }
+
+    public void setEnrollmentStartDate(LocalDateTime enrollmentStartDate) {
+        this.enrollmentStartDate = enrollmentStartDate;
+    }
+
+    public LocalDateTime getEnrollmentEndDate() {
+        return this.enrollmentEndDate;
+    }
+
+    public void setEnrollmentEndDate(LocalDateTime enrollmentEndDate) {
+        this.enrollmentEndDate = enrollmentEndDate;
+    }
+
+    public Boolean getAllowWaitingList() {
+        return this.allowWaitingList;
+    }
+
+    public void setAllowWaitingList(Boolean allowWaitingList) {
+        this.allowWaitingList = allowWaitingList;
+    }
+
+    public String getCreatedBy() {
+        return this.createdBy;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public LocalDateTime getCreatedDate() {
+        return this.createdDate;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
+    }
+
+    public LocalDateTime getLastModifiedDate() {
+        return this.lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(LocalDateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
 
 }

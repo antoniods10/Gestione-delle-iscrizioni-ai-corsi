@@ -1,5 +1,6 @@
 package it.unimol.new_unimol.enrollments.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import it.unimol.new_unimol.enrollments.dto.CourseEnrollmentDto;
@@ -13,9 +14,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import io.swagger.v3.oas.annotations.Operation;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -30,19 +28,20 @@ public class AdminController {
 
     /**
      * Estrae il token JWT dall'header Authorization
+     *
      * @param authHeader Header Authorization
      * @return Token JWT estratto
      */
     private String extractTokenFromHeader(String authHeader) {
-        if(authHeader == null) {
+        if (authHeader == null) {
             throw new IllegalArgumentException("Header Authorization mancante");
         }
         authHeader = authHeader.trim();
-        if(!authHeader.startsWith("Bearer ")) {
+        if (!authHeader.startsWith("Bearer ")) {
             throw new IllegalArgumentException("Header Authorization non valido (manca 'Bearer')");
         }
         String token = authHeader.substring(7).trim();
-        if(token.isEmpty()) {
+        if (token.isEmpty()) {
             throw new IllegalArgumentException("Token JWT mancante nell'Header Authorization");
         }
         return token;
@@ -66,11 +65,11 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
@@ -101,10 +100,10 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
@@ -133,15 +132,15 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
             CourseEnrollmentSettingsDto updated = adminService.updateEnrollmentSettings(courseId, settingsDto);
-            if(updated == null) {
+            if (updated == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Configurazione non trovata per il corso: " + courseId);
             }
             return ResponseEntity.status(HttpStatus.OK).body("Configurazione aggiornata con successo\n" + updated);
@@ -168,16 +167,16 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
             CourseEnrollmentSettingsDto settings = adminService.getEnrollmentSettingsByCourseId(courseId);
-            if(settings == null) {
+            if (settings == null) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Configurazione non trovata per il corso: " + courseId);
             }
             return ResponseEntity.status(HttpStatus.OK).body("Configurazione recuperata con successo\n" + settings);
@@ -202,16 +201,16 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
             boolean deleted = adminService.deleteEnrollmentSettings(courseId);
-            if(!deleted) {
+            if (!deleted) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Configurazione non trovata per il corso: " + courseId);
             }
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Configurazione eliminata con successo");
@@ -236,11 +235,11 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
@@ -269,18 +268,18 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
             String adminId = tokenJWTService.extractUserId(token);
-            boolean deleted =  adminService.deleteEnrollment(enrollmentId, adminId);
+            boolean deleted = adminService.deleteEnrollment(enrollmentId, adminId);
 
-            if(!deleted) {
+            if (!deleted) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Iscrizione non trovata: " + enrollmentId);
             }
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body("Iscrizione eliminata con successo");
@@ -304,11 +303,11 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
@@ -337,11 +336,11 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
@@ -375,16 +374,16 @@ public class AdminController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "admin")) {
+            if (!tokenJWTService.hasRole(token, "admin")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo agli admin");
             }
 
             String rejectReason = requestBody.get("rejectionReason");
-            if(rejectReason == null || rejectReason.trim().isEmpty()) {
+            if (rejectReason == null || rejectReason.trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Il motivo del rifiuto è obbligatorio");
             }
 

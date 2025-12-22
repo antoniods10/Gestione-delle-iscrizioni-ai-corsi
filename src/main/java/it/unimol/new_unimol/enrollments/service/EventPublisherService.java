@@ -68,7 +68,7 @@ public class EventPublisherService {
                 enrollmentId, courseId, studentId, deletedBy, LocalDateTime.now()
         );
         Map<String, Object> message = new HashMap<>();
-        message.put("eventType","ENROLLMENT_DELETED");
+        message.put("eventType", "ENROLLMENT_DELETED");
         message.put("enrollmentId", enrollmentId);
 
         rabbitTemplate.convertAndSend(enrollmentExchange, "enrollment.deleted", message);
@@ -84,7 +84,7 @@ public class EventPublisherService {
         rabbitTemplate.convertAndSend(enrollmentExchange, "enrollment.updated", message);
     }
 
-    public void publishEnrollmentRequestSubmitted (String requestId, String courseId, String studentId) {
+    public void publishEnrollmentRequestSubmitted(String requestId, String courseId, String studentId) {
         EnrollmentRequestSubmittedEvent event = new EnrollmentRequestSubmittedEvent(
                 requestId, courseId, studentId, LocalDateTime.now()
         );

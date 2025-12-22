@@ -1,7 +1,6 @@
 package it.unimol.new_unimol.enrollments.repository;
 
 import it.unimol.new_unimol.enrollments.model.EnrollmentRequest;
-import it.unimol.new_unimol.enrollments.util.EnrollmentStatus;
 import it.unimol.new_unimol.enrollments.util.RequestStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;

@@ -25,19 +25,20 @@ public class TeacherController {
 
     /**
      * Estrae il token JWT dall'header Authorization
+     *
      * @param authHeader Header Authorization
      * @return Token JWT estratto
      */
     private String extractTokenFromHeader(String authHeader) {
-        if(authHeader == null) {
+        if (authHeader == null) {
             throw new IllegalArgumentException("Header Authorization mancante");
         }
         authHeader = authHeader.trim();
-        if(!authHeader.startsWith("Bearer ")) {
+        if (!authHeader.startsWith("Bearer ")) {
             throw new IllegalArgumentException("Header Authorization non valido (manca 'Bearer')");
         }
         String token = authHeader.substring(7).trim();
-        if(token.isEmpty()) {
+        if (token.isEmpty()) {
             throw new IllegalArgumentException("Token JWT mancante nell'Header Authorization");
         }
         return token;
@@ -61,11 +62,11 @@ public class TeacherController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "teach")) {
+            if (!tokenJWTService.hasRole(token, "teach")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo ai docenti");
             }
 
@@ -73,7 +74,7 @@ public class TeacherController {
             String studentId = requestBody.get("studentId");
             String notes = requestBody.get("notes");
 
-            if(studentId == null || studentId.trim().isEmpty()) {
+            if (studentId == null || studentId.trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("L'id dello studente è obbligatorio");
             }
 
@@ -108,22 +109,22 @@ public class TeacherController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "teach")) {
+            if (!tokenJWTService.hasRole(token, "teach")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo ai docenti");
             }
 
-            if(studentIds == null || studentIds.isEmpty()) {
+            if (studentIds == null || studentIds.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("La lista degli utenti non può essere vuota");
             }
 
             String teacherId = tokenJWTService.extractUserId(token);
             Map<String, Object> results = teacherService.bulkManualEnrollStudents(courseId, studentIds, teacherId);
 
-            if(results.containsKey("failed") && !((List<?>) results.get("failed")).isEmpty()) {
+            if (results.containsKey("failed") && !((List<?>) results.get("failed")).isEmpty()) {
                 return ResponseEntity.status(HttpStatus.MULTI_STATUS).body(results);
             }
 
@@ -133,7 +134,7 @@ public class TeacherController {
         } catch (SecurityException e) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(e.getMessage());
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'iscrizione multipla: " +  e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'iscrizione multipla: " + e.getMessage());
         }
     }
 
@@ -153,11 +154,11 @@ public class TeacherController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "teach")) {
+            if (!tokenJWTService.hasRole(token, "teach")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo ai docenti");
             }
 
@@ -188,11 +189,11 @@ public class TeacherController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "teach")) {
+            if (!tokenJWTService.hasRole(token, "teach")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo ai docenti");
             }
 
@@ -226,11 +227,11 @@ public class TeacherController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "teach")) {
+            if (!tokenJWTService.hasRole(token, "teach")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo ai docenti");
             }
 
@@ -266,16 +267,16 @@ public class TeacherController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "teach")) {
+            if (!tokenJWTService.hasRole(token, "teach")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo ai docenti");
             }
 
             String rejectReason = requestBody.get("rejectionReason");
-            if(rejectReason == null || rejectReason.trim().isEmpty()) {
+            if (rejectReason == null || rejectReason.trim().isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Il motivo del rifiuto è obbligatorio");
             }
 
@@ -308,11 +309,11 @@ public class TeacherController {
         try {
             String token = extractTokenFromHeader(authorization);
 
-            if(!tokenJWTService.isTokenValid(token)) {
+            if (!tokenJWTService.isTokenValid(token)) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Token non valido o scaduto");
             }
 
-            if(!tokenJWTService.hasRole(token, "teach")) {
+            if (!tokenJWTService.hasRole(token, "teach")) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body("Operazione consentita solo ai docenti");
             }
 
@@ -320,7 +321,7 @@ public class TeacherController {
             String reason = requestBody != null ? requestBody.get("reason") : null;
 
             boolean deleted = teacherService.deleteEnrollmentFromOwnCourse(enrollmentId, teacherId, reason);
-            if(!deleted) {
+            if (!deleted) {
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Iscrizione non trovata o non hai i permessi per eliminarla");
             }
 

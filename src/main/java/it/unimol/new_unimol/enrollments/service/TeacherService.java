@@ -56,20 +56,20 @@ public class TeacherService {
      */
     public CourseEnrollmentDto manualEnrollStudent(String courseId, String studentId, String teacherId, String notes) {
         CourseValidationResponseDto courseValidation = rabbitMQService.validateCourse(courseId);
-        if(!courseValidation.isValid()) {
+        if (!courseValidation.isValid()) {
             throw new IllegalArgumentException("Corso non valido: " + courseValidation.errorMessage());
         }
 
-        if(!courseValidation.teacherId().equals(teacherId)) {
+        if (!courseValidation.teacherId().equals(teacherId)) {
             throw new SecurityException("Non sei il docente di questo corso");
         }
 
-        if(enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
+        if (enrollmentRepository.existsByCourseIdAndStudentId(courseId, studentId)) {
             throw new IllegalStateException("Lo studente è già iscritto a questo corso");
         }
 
         CourseEnrollmentSettings settings = settingsRepository.findByCourseId(courseId).orElse(null);
-        if(settings != null) {
+        if (settings != null) {
             if (settings.getEnrollmentMode() == EnrollmentMode.SELF_SERVICE) {
                 throw new IllegalArgumentException("Questo corso accetta solo iscrizioni self-service");
             }
@@ -122,17 +122,17 @@ public class TeacherService {
      */
     public Map<String, Object> bulkManualEnrollStudents(String courseId, List<String> studentIds, String teacherId) {
         CourseValidationResponseDto courseValidation = rabbitMQService.validateCourse(courseId);
-        if(!courseValidation.isValid()) {
+        if (!courseValidation.isValid()) {
             throw new IllegalArgumentException("Corso non valido: " + courseValidation.errorMessage());
         }
 
-        if(!courseValidation.teacherId().equals(teacherId)) {
+        if (!courseValidation.teacherId().equals(teacherId)) {
             throw new SecurityException("Non sei il docente di questo corso");
         }
         List<CourseEnrollmentDto> successfulEnrollments = new ArrayList<>();
         List<Map<String, String>> failedEnrollments = new ArrayList<>();
 
-        for(String studentId : studentIds) {
+        for (String studentId : studentIds) {
             try {
                 CourseEnrollmentDto enrollment = manualEnrollStudent(courseId, studentId, teacherId, "Iscrizione multipla da docente");
                 successfulEnrollments.add(enrollment);
@@ -156,11 +156,11 @@ public class TeacherService {
      */
     public List<CourseEnrollmentDto> getOwnCourseEnrollments(String courseId, String teacherId) {
         CourseValidationResponseDto courseValidation = rabbitMQService.validateCourse(courseId);
-        if(!courseValidation.isValid()) {
+        if (!courseValidation.isValid()) {
             throw new IllegalArgumentException("Corso non valido: " + courseValidation.errorMessage());
         }
 
-        if(!courseValidation.teacherId().equals(teacherId)) {
+        if (!courseValidation.teacherId().equals(teacherId)) {
             throw new SecurityException("Non sei il docente di questo corso");
         }
 
@@ -174,11 +174,11 @@ public class TeacherService {
      */
     public List<EnrollmentRequestDto> getOwnCoursePendingRequest(String courseId, String teacherId) {
         CourseValidationResponseDto courseValidation = rabbitMQService.validateCourse(courseId);
-        if(!courseValidation.isValid()) {
+        if (!courseValidation.isValid()) {
             throw new IllegalArgumentException("Corso non valido: " + courseValidation.errorMessage());
         }
 
-        if(!courseValidation.teacherId().equals(teacherId)) {
+        if (!courseValidation.teacherId().equals(teacherId)) {
             throw new SecurityException("Non sei il docente di questo corso");
         }
 
@@ -193,28 +193,28 @@ public class TeacherService {
     public EnrollmentRequestDto approveEnrollmentRequest(String requestId, String teacherId) {
         EnrollmentRequest request = requestRepository.findById(requestId).orElse(null);
 
-        if(request == null) {
+        if (request == null) {
             throw new IllegalArgumentException("Richiesta non trovata: " + requestId);
         }
 
         CourseValidationResponseDto courseValidation = rabbitMQService.validateCourse(request.getCourseId());
-        if(!courseValidation.teacherId().equals(teacherId)) {
+        if (!courseValidation.teacherId().equals(teacherId)) {
             throw new SecurityException("Non sei il docente di questo corso");
         }
 
-        if(request.getStatus() != RequestStatus.PENDING) {
+        if (request.getStatus() != RequestStatus.PENDING) {
             throw new IllegalArgumentException("La richiesta non è in stato PENDING");
         }
 
-        if(enrollmentRepository.existsByCourseIdAndStudentId(request.getCourseId(), request.getStudentId())) {
+        if (enrollmentRepository.existsByCourseIdAndStudentId(request.getCourseId(), request.getStudentId())) {
             throw new IllegalStateException("Lo studente è già iscritto a questo corso");
         }
 
         CourseEnrollmentSettings settings = settingsRepository.findByCourseId(request.getCourseId()).orElse(null);
 
-        if(settings != null && settings.getMaxEnrollments() != null) {
+        if (settings != null && settings.getMaxEnrollments() != null) {
             int currentEnrollments = enrollmentRepository.countByCourseIdAndStatus(request.getCourseId(), EnrollmentStatus.ACTIVE);
-            if(currentEnrollments >= settings.getMaxEnrollments()) {
+            if (currentEnrollments >= settings.getMaxEnrollments()) {
                 throw new IllegalStateException("Raggiunto il limite massimo di iscrizioni per questo corso");
             }
         }
@@ -264,7 +264,7 @@ public class TeacherService {
     public EnrollmentRequestDto rejectEnrollmentRequest(String requestId, String rejectReason, String teacherId) {
         EnrollmentRequest request = requestRepository.findById(requestId).orElse(null);
 
-        if(request == null) {
+        if (request == null) {
             throw new IllegalArgumentException("Richiesta non trovata: " + requestId);
         }
 
@@ -334,8 +334,8 @@ public class TeacherService {
                 enrollment.getCourseId(),
                 courseValidation.courseName(),
                 "ENROLLMENT_DELETED_BY_TEACHER",
-                "Sei stato rimosso dal corso " + courseValidation.courseName() +
-                        (reason != null ? ". Motivo: " + reason : ""),
+                "Sei stato rimosso dal corso " + courseValidation.courseName()
+                        + (reason != null ? ". Motivo: " + reason : ""),
                 Map.of("courseId", enrollment.getCourseId(), "deletedBy", teacherId)
         );
 

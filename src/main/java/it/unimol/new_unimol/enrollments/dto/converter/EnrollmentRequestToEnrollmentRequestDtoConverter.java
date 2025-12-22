@@ -10,7 +10,7 @@ public class EnrollmentRequestToEnrollmentRequestDtoConverter implements Convert
 
     @Override
     public EnrollmentRequestDto convert(EnrollmentRequest enrollmentRequest) {
-        if(enrollmentRequest == null) {
+        if (enrollmentRequest == null) {
             return null;
         }
         return new EnrollmentRequestDto(

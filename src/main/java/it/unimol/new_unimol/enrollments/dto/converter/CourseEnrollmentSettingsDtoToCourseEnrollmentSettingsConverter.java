@@ -1,7 +1,7 @@
 package it.unimol.new_unimol.enrollments.dto.converter;
 
-import it.unimol.new_unimol.enrollments.model.CourseEnrollmentSettings;
 import it.unimol.new_unimol.enrollments.dto.CourseEnrollmentSettingsDto;
+import it.unimol.new_unimol.enrollments.model.CourseEnrollmentSettings;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ public class CourseEnrollmentSettingsDtoToCourseEnrollmentSettingsConverter impl
 
     @Override
     public CourseEnrollmentSettings convert(CourseEnrollmentSettingsDto source) {
-        if(source == null){
+        if (source == null) {
             return null;
         }
         return new CourseEnrollmentSettings(

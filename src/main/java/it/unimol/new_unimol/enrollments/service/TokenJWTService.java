@@ -1,17 +1,16 @@
 package it.unimol.new_unimol.enrollments.service;
 
-import java.security.KeyFactory;
-import java.security.PublicKey;
-import java.security.spec.X509EncodedKeySpec;
-import java.util.*;
-import java.util.function.Function;
-
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import java.security.KeyFactory;
+import java.security.PublicKey;
+import java.security.spec.X509EncodedKeySpec;
+import java.util.Base64;
+import java.util.Date;
+import java.util.function.Function;
 
 @Service
 public class TokenJWTService {
@@ -35,12 +34,12 @@ public class TokenJWTService {
         return publicKey;
     }
 
-    public <T> T extractClaim (String token, Function<Claims, T> claimsResolver) {
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
 
-    private Claims extractAllClaims (String token) {
+    private Claims extractAllClaims(String token) {
         return Jwts.parserBuilder()
                 .setSigningKey(getPublicKey())
                 .build()
@@ -72,7 +71,7 @@ public class TokenJWTService {
         return extractExpiration(token).before(new Date());
     }
 
-    public boolean isTokenValid (String token) {
+    public boolean isTokenValid(String token) {
         return !isTokenExpired(token);
     }
 }

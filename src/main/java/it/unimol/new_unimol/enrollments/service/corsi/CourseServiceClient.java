@@ -20,7 +20,7 @@ public class CourseServiceClient {
     private String coursesServiceUrl;
 
     public CourseServiceClient() {
-        this.restTemplate = new RestTemplate();;
+        this.restTemplate = new RestTemplate();
     }
 
     /**
@@ -74,7 +74,8 @@ public class CourseServiceClient {
                 coursesServiceUrl + "/api/courses",
                 HttpMethod.GET,
                 entity,
-                new ParameterizedTypeReference<List<CourseResponseDto>>() {}
+                new ParameterizedTypeReference<List<CourseResponseDto>>() {
+                }
         );
 
         return response.getBody();

@@ -1,8 +1,8 @@
 package it.unimol.new_unimol.enrollments.config;
 
 import org.springframework.amqp.core.*;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.rabbit.connection.ConnectionFactory;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -58,7 +58,7 @@ public class RabbitMQConfig {
 
     //Exchanges
     @Bean
-    public TopicExchange enrollmentExchange(){
+    public TopicExchange enrollmentExchange() {
         return new TopicExchange(enrollmentExchange);
     }
 
@@ -170,31 +170,59 @@ public class RabbitMQConfig {
         return this.enrollmentExchange;
     }
 
-    public String getEnrollmentCreatedQueue(){return this.enrollmentCreatedQueue;}
+    public String getEnrollmentCreatedQueue() {
+        return this.enrollmentCreatedQueue;
+    }
 
-    public String getEnrollmentApprovedQueue(){return this.enrollmentApprovedQueue;}
+    public String getEnrollmentApprovedQueue() {
+        return this.enrollmentApprovedQueue;
+    }
 
-    public String getEnrollmentRejectedQueue(){return this.enrollmentRejectedQueue;}
+    public String getEnrollmentRejectedQueue() {
+        return this.enrollmentRejectedQueue;
+    }
 
-    public String getEnrollmentDeletedQueue(){return this.enrollmentDeletedQueue;}
+    public String getEnrollmentDeletedQueue() {
+        return this.enrollmentDeletedQueue;
+    }
 
-    public String getEnrollmentUpdatedQueue(){return this.enrollmentUpdatedQueue;}
+    public String getEnrollmentUpdatedQueue() {
+        return this.enrollmentUpdatedQueue;
+    }
 
-    public String getEnrollmentNotificationQueue(){return this.enrollmentNotificationQueue;}
+    public String getEnrollmentNotificationQueue() {
+        return this.enrollmentNotificationQueue;
+    }
 
-    public String getEnrollmentRequestSubmittedQueue(){return this.enrollmentRequestSubmittedQueue;}
+    public String getEnrollmentRequestSubmittedQueue() {
+        return this.enrollmentRequestSubmittedQueue;
+    }
 
-    public String getEnrollmentCreatedRoutingKey(){return this.enrollmentCreatedRoutingKey;}
+    public String getEnrollmentCreatedRoutingKey() {
+        return this.enrollmentCreatedRoutingKey;
+    }
 
-    public String getEnrollmentApprovedRoutingKey(){return this.enrollmentApprovedRoutingKey;}
+    public String getEnrollmentApprovedRoutingKey() {
+        return this.enrollmentApprovedRoutingKey;
+    }
 
-    public String getEnrollmentRejectedRoutingKey() {return this.enrollmentRejectedRoutingKey;}
+    public String getEnrollmentRejectedRoutingKey() {
+        return this.enrollmentRejectedRoutingKey;
+    }
 
-    public String getEnrollmentDeletedRoutingKey() {return this.enrollmentDeletedRoutingKey;}
+    public String getEnrollmentDeletedRoutingKey() {
+        return this.enrollmentDeletedRoutingKey;
+    }
 
-    public String getEnrollmentUpdatedRoutingKey() {return this.enrollmentUpdatedRoutingKey;}
+    public String getEnrollmentUpdatedRoutingKey() {
+        return this.enrollmentUpdatedRoutingKey;
+    }
 
-    public String getEnrollmentRequestSubmittedRoutingKey() {return this.enrollmentRequestSubmittedRoutingKey;}
+    public String getEnrollmentRequestSubmittedRoutingKey() {
+        return this.enrollmentRequestSubmittedRoutingKey;
+    }
 
-    public String getEnrollmentNotificationRoutingKey() {return this.enrollmentNotificationRoutingKey;}
+    public String getEnrollmentNotificationRoutingKey() {
+        return this.enrollmentNotificationRoutingKey;
+    }
 }

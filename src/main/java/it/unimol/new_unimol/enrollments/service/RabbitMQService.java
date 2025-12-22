@@ -35,7 +35,7 @@ public class RabbitMQService {
         try {
             if (!courseServiceClient.courseExists(courseId, adminToken)) {
                 return new CourseValidationResponseDto(
-                        courseId, null, null, false, false,null, null, "Corso non trovato"
+                        courseId, null, null, false, false, null, null, "Corso non trovato"
                 );
             }
 
@@ -53,7 +53,7 @@ public class RabbitMQService {
             );
         } catch (Exception e) {
             return new CourseValidationResponseDto(
-                    courseId, null, null, false, false,null, null, "Errore nella validazione" + e.getMessage()
+                    courseId, null, null, false, false, null, null, "Errore nella validazione" + e.getMessage()
             );
         }
 
@@ -62,8 +62,8 @@ public class RabbitMQService {
     /**
      * Invia una notifica di iscrizione
      */
-    public void sendEnrollmentNotification (String studentId, String courseId, String courseName,
-                                            String notificationType, String message, Map<String, String> additionalData) {
+    public void sendEnrollmentNotification(String studentId, String courseId, String courseName,
+                                           String notificationType, String message, Map<String, String> additionalData) {
         try {
             EnrollmentNotificationDto notification = new EnrollmentNotificationDto(
                     studentId, courseId, courseName, notificationType, message, LocalDateTime.now(), additionalData

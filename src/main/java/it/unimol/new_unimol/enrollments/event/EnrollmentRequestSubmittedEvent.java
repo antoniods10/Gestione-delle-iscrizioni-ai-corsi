@@ -9,7 +9,8 @@ public class EnrollmentRequestSubmittedEvent implements Serializable {
     private String studentId;
     private LocalDateTime requestDate;
 
-    public EnrollmentRequestSubmittedEvent() {}
+    public EnrollmentRequestSubmittedEvent() {
+    }
 
     public EnrollmentRequestSubmittedEvent(String requestId, String courseId,
                                            String studentId, LocalDateTime requestDate) {
@@ -19,16 +20,36 @@ public class EnrollmentRequestSubmittedEvent implements Serializable {
         this.requestDate = requestDate;
     }
 
-    public String getRequestId() { return requestId; }
-    public void setRequestId(String requestId) { this.requestId = requestId; }
+    public String getRequestId() {
+        return requestId;
+    }
 
-    public String getCourseId() { return courseId; }
-    public void setCourseId(String courseId) { this.courseId = courseId; }
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
-    public String getStudentId() { return studentId; }
-    public void setStudentId(String studentId) { this.studentId = studentId; }
+    public String getCourseId() {
+        return courseId;
+    }
 
-    public LocalDateTime getRequestDate() { return requestDate; }
-    public void setRequestDate(LocalDateTime requestDate) { this.requestDate = requestDate; }
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public LocalDateTime getRequestDate() {
+        return requestDate;
+    }
+
+    public void setRequestDate(LocalDateTime requestDate) {
+        this.requestDate = requestDate;
+    }
 
 }

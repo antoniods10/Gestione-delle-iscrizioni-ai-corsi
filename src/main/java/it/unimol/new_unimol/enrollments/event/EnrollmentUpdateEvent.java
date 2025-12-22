@@ -11,7 +11,8 @@ public class EnrollmentUpdateEvent implements Serializable {
     private String updateReason;
     private LocalDateTime timestamp;
 
-    public EnrollmentUpdateEvent() {}
+    public EnrollmentUpdateEvent() {
+    }
 
     public EnrollmentUpdateEvent(String enrollmentId, String courseId, String studentId,
                                  String updateType, String updateReason, LocalDateTime timestamp) {
@@ -23,21 +24,51 @@ public class EnrollmentUpdateEvent implements Serializable {
         this.timestamp = timestamp;
     }
 
-    public String getEnrollmentId() { return enrollmentId; }
-    public void setEnrollmentId(String enrollmentId) { this.enrollmentId = enrollmentId; }
+    public String getEnrollmentId() {
+        return enrollmentId;
+    }
 
-    public String getCourseId() { return courseId; }
-    public void setCourseId(String courseId) { this.courseId = courseId; }
+    public void setEnrollmentId(String enrollmentId) {
+        this.enrollmentId = enrollmentId;
+    }
 
-    public String getStudentId() { return studentId; }
-    public void setStudentId(String studentId) { this.studentId = studentId; }
+    public String getCourseId() {
+        return courseId;
+    }
 
-    public String getUpdateType() { return updateType; }
-    public void setUpdateType(String updateType) { this.updateType = updateType; }
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
-    public String getUpdateReason() { return updateReason; }
-    public void setUpdateReason(String updateReason) { this.updateReason = updateReason; }
+    public String getStudentId() {
+        return studentId;
+    }
 
-    public LocalDateTime getTimestamp() { return timestamp; }
-    public void setTimestamp(LocalDateTime timestamp) { this.timestamp = timestamp; }
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getUpdateType() {
+        return updateType;
+    }
+
+    public void setUpdateType(String updateType) {
+        this.updateType = updateType;
+    }
+
+    public String getUpdateReason() {
+        return updateReason;
+    }
+
+    public void setUpdateReason(String updateReason) {
+        this.updateReason = updateReason;
+    }
+
+    public LocalDateTime getTimestamp() {
+        return timestamp;
+    }
+
+    public void setTimestamp(LocalDateTime timestamp) {
+        this.timestamp = timestamp;
+    }
 }

@@ -11,7 +11,8 @@ public class EnrollmentRejectedEvent implements Serializable {
     private String reason;
     private LocalDateTime rejectionDate;
 
-    public EnrollmentRejectedEvent() {}
+    public EnrollmentRejectedEvent() {
+    }
 
     public EnrollmentRejectedEvent(String requestId, String courseId, String studentId,
                                    String rejectedBy, String reason, LocalDateTime rejectionDate) {
@@ -23,22 +24,52 @@ public class EnrollmentRejectedEvent implements Serializable {
         this.rejectionDate = rejectionDate;
     }
 
-    public String getRequestId() { return requestId; }
-    public void setRequestId(String requestId) { this.requestId = requestId; }
+    public String getRequestId() {
+        return requestId;
+    }
 
-    public String getCourseId() { return courseId; }
-    public void setCourseId(String courseId) { this.courseId = courseId; }
+    public void setRequestId(String requestId) {
+        this.requestId = requestId;
+    }
 
-    public String getStudentId() { return studentId; }
-    public void setStudentId(String studentId) { this.studentId = studentId; }
+    public String getCourseId() {
+        return courseId;
+    }
 
-    public String getRejectedBy() { return rejectedBy; }
-    public void setRejectedBy(String rejectedBy) { this.rejectedBy = rejectedBy; }
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
-    public String getReason() { return reason; }
-    public void setReason(String reason) { this.reason = reason; }
+    public String getStudentId() {
+        return studentId;
+    }
 
-    public LocalDateTime getRejectionDate() { return rejectionDate; }
-    public void setRejectionDate(LocalDateTime rejectionDate) { this.rejectionDate = rejectionDate; }
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
+
+    public String getRejectedBy() {
+        return rejectedBy;
+    }
+
+    public void setRejectedBy(String rejectedBy) {
+        this.rejectedBy = rejectedBy;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
+    }
+
+    public LocalDateTime getRejectionDate() {
+        return rejectionDate;
+    }
+
+    public void setRejectionDate(LocalDateTime rejectionDate) {
+        this.rejectionDate = rejectionDate;
+    }
 
 }

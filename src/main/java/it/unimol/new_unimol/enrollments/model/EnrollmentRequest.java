@@ -34,7 +34,8 @@ public class EnrollmentRequest {
     @Column(name = "processed_date")
     private LocalDateTime processedDate;
 
-    public EnrollmentRequest() {}
+    public EnrollmentRequest() {
+    }
 
     public EnrollmentRequest(String id, String courseId, String studentId, LocalDateTime requestDate, RequestStatus status, String processedBy, LocalDateTime processedDate) {
         this.id = id;
@@ -47,28 +48,68 @@ public class EnrollmentRequest {
         this.processedDate = processedDate;
     }
 
-    public String getId() {return this.id;}
-    public void setId(String id) {this.id = id;}
+    public String getId() {
+        return this.id;
+    }
 
-    public String getCourseId() {return this.courseId;}
-    public void setCourseId(String courseId) {this.courseId = courseId;}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-    public String getStudentId() {return this.studentId;}
-    public void setStudentId(String studentId) {this.studentId = studentId;}
+    public String getCourseId() {
+        return this.courseId;
+    }
 
-    public LocalDateTime getRequestDate() {return this.requestDate;}
-    public void setRequestDate(LocalDateTime requestDate) {this.requestDate = requestDate;}
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
 
-    public RequestStatus getStatus() {return this.status;}
-    public void setStatus(RequestStatus status) {this.status = status;}
+    public String getStudentId() {
+        return this.studentId;
+    }
 
-    public String getRejectReason() {return this.rejectReason;}
-    public void setRejectReason(String rejectReason) {this.rejectReason = rejectReason;}
+    public void setStudentId(String studentId) {
+        this.studentId = studentId;
+    }
 
-    public String getProcessedBy() {return this.processedBy;}
-    public void setProcessedBy(String processedBy) {this.processedBy = processedBy;}
+    public LocalDateTime getRequestDate() {
+        return this.requestDate;
+    }
 
-    public LocalDateTime getProcessedDate() {return this.processedDate;}
-    public void setProcessedDate(LocalDateTime processedDate) {this.processedDate = processedDate;}
+    public void setRequestDate(LocalDateTime requestDate) {
+        this.requestDate = requestDate;
+    }
+
+    public RequestStatus getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(RequestStatus status) {
+        this.status = status;
+    }
+
+    public String getRejectReason() {
+        return this.rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason;
+    }
+
+    public String getProcessedBy() {
+        return this.processedBy;
+    }
+
+    public void setProcessedBy(String processedBy) {
+        this.processedBy = processedBy;
+    }
+
+    public LocalDateTime getProcessedDate() {
+        return this.processedDate;
+    }
+
+    public void setProcessedDate(LocalDateTime processedDate) {
+        this.processedDate = processedDate;
+    }
 
 }
