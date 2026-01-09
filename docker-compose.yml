@@ -1,0 +1,52 @@
+services:
+  mysql:
+    image: mysql:8.4.0-oracle
+    env_file:
+      - ./secrets.env
+    environment:
+      MYSQL_DATABASE: enrollment
+    volumes:
+      - mysql_data:/var/lib/mysql/data
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+
+  rabbitmq:
+    image: rabbitmq:3.13-management
+    env_file:
+      - ./secrets.env
+    deploy:
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+  newunimol:
+    build: "."
+    depends_on:
+      - mysql
+      - rabbitmq
+    env_file:
+      - ./secrets.env
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/enrollment
+      SPRING_RABBITMQ_HOST: rabbitmq
+    ports:
+      - "8080:8080"
+    deploy:
+      replicas: 5
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+
+volumes:
+  mysql_data:
+    driver: local
