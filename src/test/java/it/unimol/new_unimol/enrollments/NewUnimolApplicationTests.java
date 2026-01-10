@@ -5,9 +5,11 @@ import it.unimol.new_unimol.enrollments.service.StudentService;
 import it.unimol.new_unimol.enrollments.service.TeacherService;
 import it.unimol.new_unimol.enrollments.service.TokenJWTService;
 import org.junit.jupiter.api.Test;
+import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
+import org.springframework.test.context.bean.override.mockito.MockitoBean;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,6 +18,9 @@ class NewUnimolApplicationTests {
 
     @Autowired
     private ApplicationContext applicationContext;
+
+    @MockitoBean
+    private ConnectionFactory connectionFactory;
 
     @Autowired
     private StudentService studentService;
