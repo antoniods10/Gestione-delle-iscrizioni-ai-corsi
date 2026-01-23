@@ -10,25 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.4.0
-        env:
-          MYSQL_DATABASE: enrollment
-          MYSQL_USER: springuser
-          MYSQL_PASSWORD: springpassword
-          MYSQL_ROOT_PASSWORD: root
-        ports:
-          - 3306:3306
-        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
-
-      rabbitmq:
-        image: rabbitmq:3.13-management
-        ports:
-          - 5672:5672
-          - 15672:15672
-        options: --health-cmd "rabbitmq-diagnostics -q ping" --health-interval 10s --health-timeout 5s --health-retries 5
-
     steps:
       - name: Checkout del codice
         uses: actions/checkout@v4
