@@ -13,7 +13,7 @@ FROM eclipse-temurin:23-jre
 
 WORKDIR /newunimol
 
-COPY --from=build /app/target/NewUnimol-1.0.0-SNAPSHOT.jar NewUnimol.jar
+COPY --from=build /app/target/NewUnimol-1.0.1-SNAPSHOT.jar NewUnimol.jar
 
 EXPOSE 8080
 

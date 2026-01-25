@@ -9,18 +9,5 @@
     <Match>
         <Class name="~.*\.*Test.*"/>
     </Match>
-
-    <Match>
-        <Bug pattern="EI_EXPOSE_REP,EI_EXPOSE_REP2" />
-        <Class name="~.*(Controller|Service)"/>
-    </Match>
-
-    <Match>
-        <Bug pattern="URF_UNREAD_FIELD" />
-        <Class name="~.*(Controller|Service|Component)"/>
-    </Match>
-
-    <Match>
-        <Bug pattern="SE_NO_SERIALVERSIONID"/>
-    </Match>
+    
 </FindBugsFilter>

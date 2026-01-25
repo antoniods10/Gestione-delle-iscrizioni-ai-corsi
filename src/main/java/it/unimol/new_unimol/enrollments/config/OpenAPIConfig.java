@@ -16,7 +16,7 @@ public class OpenAPIConfig {
         return new OpenAPI()
                 .info(new Info()
                         .title("Course Enrollment API")
-                        .version("1.0.0")
+                        .version("1.0.1")
                         .description("Microservizio per la gestione delle iscrizioni ai corsi"))
                 .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
                 .components(new io.swagger.v3.oas.models.Components()
